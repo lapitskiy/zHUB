@@ -1,0 +1,28 @@
+{% if error %}
+   ошибка загрузки репозитория с сервера
+{% endif %}
+
+{% for item in load_plugins %}
+    <div class="card" style="width: 18rem;">
+        <div class="card-header">
+
+            <h5 class="card-title">{{ item.title }}</h5>
+        </div>
+        <img src="{{ item.photo }}" class="card-img-top" alt="{{ item.title }}">
+        <div class="card-body">
+
+            <p class="card-text">{{ item.description }}</p>
+        </div>
+        <div class="card-body">
+            <p><a href="{% url 'install_repository' item.id 'install' %}" class="btn btn-primary">Установить</a></p>
+            <p><a href="{{ item.zipfile }}" class="card-link">Скачать модуль</a></p>
+            <p><a href="http://127.0.0.1:8001/plugins/{{ item.id }}" class="card-link">Подробнее</a></p>
+        </div>
+        <div class="card-footer text-muted">
+            Обновлено: {{ item.updated_at|date:"Y-m-d" }}<br>
+            Загрузок:  {{ item.loads }}<br>
+            ID: {{ item.id }}<br>
+        </div>
+    </div>
+<br><br>
+{% endfor %}

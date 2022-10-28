@@ -1,0 +1,41 @@
+<div class="card-body">
+    {% if not delete_check %}
+        {% if active_check %}
+            {% if copydata %}
+                <div class="alert alert-success" role="alert">
+                    {{ info }}
+                </div>
+            {% else %}
+                <p><a href="{{ plugins_item.get_absolute_url }}demodata" class="btn btn-primary">Установить demo данные</a></p>
+            {% endif %}
+            <p><a href="{{ plugins_item.get_absolute_url }}deactive" class="btn btn-primary">Деактивировать</a></p>
+        {% else %}
+            <p><a href="{{ plugins_item.get_absolute_url }}active" class="btn btn-success">Активировать</a></p>
+            <p><a href="{{ plugins_item.get_absolute_url }}delete" class="btn btn-warning">Удалить</a></p>
+        {% endif %}
+
+        <div class="card-footer">
+            Плагин связан с:
+            <div class="col-md-3">
+                {% for obj in isRelated %}
+                    - {{ obj }}<br>
+                {% endfor %}
+            <br>
+            Связать c этим плагином:
+                <form action="{{ plugins_item.get_absolute_url }}related" method="POST">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    {{ form.as_p }}
+                    <button type="submit" name="related_add" class="btn btn-primary btn-block">Связать</button>
+                    <button type="submit" name="related_del" class="btn btn-primary btn-block">Отвязать</button>
+                </form>
+            </div>
+        </div>
+
+    {% else %}
+        <div class="alert alert-success" role="alert">
+            Плагин удален
+        </div>
+    {% endif %}
+
+</div>
