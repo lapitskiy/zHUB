@@ -1,5 +1,4 @@
 asgiref==3.5.2
-backports.zoneinfo==0.2.1
 bpyutils==0.5.8
 certifi==2022.9.14
 chardet==5.0.0
@@ -26,3 +25,4 @@ sqlparse==0.4.2
 tzdata==2022.2
 urllib3==1.26.12
 yarg==0.1.9
+backports.zoneinfo;python_version<"3.9"
