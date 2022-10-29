@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  web:
+  zhub:
     build: ./
     command: python manage.py runserver 0.0.0.0:8002
     volumes:
@@ -21,4 +21,4 @@ services:
       MYSQL_ROOT_PASSWORD: 'root'
     restart: always
     volumes:
-      - ./zhub:/var/lib/mysql
+      - mysql-django:/var/lib/mysql
