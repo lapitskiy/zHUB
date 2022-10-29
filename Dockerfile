@@ -1,4 +1,6 @@
-FROM python:3.10 as build-python
+FROM --platform=$BUILDPLATFORM python:3.10 AS builder
+
+EXPOSE 8002
 
 ENV MICRO_SERVICE=/home/zHUB
 
@@ -22,5 +24,5 @@ ENV LANG ru_RU.UTF-8
 ENV LC_ALL ru_RU.UTF-8
 
 COPY ./requirements.txt $MICRO_SERVICE
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN pip install --upgrade pip && pip3 install -r requirements.txt --no-cache-dir
 ADD . $MICRO_SERVICE
