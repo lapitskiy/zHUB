@@ -23,4 +23,3 @@ ENV LC_ALL ru_RU.UTF-8
 
 COPY ./requirements.txt $MICRO_SERVICE
 RUN pip install --upgrade pip && pip3 install -r requirements.txt --no-cache-dir
-ADD . $MICRO_SERVICE
