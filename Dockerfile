@@ -2,7 +2,7 @@ FROM --platform=$BUILDPLATFORM python:3.10 AS builder
 
 EXPOSE 8002
 
-ENV MICRO_SERVICE=/home/zHUB
+ENV MICRO_SERVICE=/home/dhub
 
 RUN mkdir -p $MICRO_SERVICE
 RUN mkdir -p $MICRO_SERVICE/static

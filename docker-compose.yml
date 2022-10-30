@@ -5,7 +5,7 @@ services:
     build: ./
     command: python manage.py runserver 0.0.0.0:8002
     volumes:
-      - .:/home/zHub
+      - .:/home/dhub
     ports:
       - '8002:8002'
     depends_on:
