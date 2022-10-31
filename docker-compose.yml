@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 
 services:
   web:
@@ -8,21 +8,5 @@ services:
       - .:/home/dhub
     ports:
       - '8002:8002'
-    depends_on:
-      - db
-  db:
-    image: mysql:8.0
-    ports:
-      - '3306:3306'
-    environment:
-      MYSQL_DATABASE: 'zhub'
-      MYSQL_USER: 'root'
-      MYSQL_PASSWORD: 'root'
-      MYSQL_ROOT_PASSWORD: 'root'
-    restart: always
-    volumes:
-      - mysql-django:/var/lib/mysql
-
-volumes:
-    mysql-django:
-      external: false
+    env_file:
+      - ./.env.dev
