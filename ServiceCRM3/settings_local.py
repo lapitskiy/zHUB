@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 from plugins import settings_plugin
+import logging.config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,13 +21,22 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'b=6b6nm*el46o2-2e^y*f0d!adb@yatl9@x)x&n#d0nav#j45n'
+
+DEBUG = int(os.environ.get("DEBUG", default=1))
+# 'DJANGO_ALLOWED_HOSTS' должен быть в виде одной строки с хостами разделенными символом пробела
+# Для примера: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
+#ALLOWED_HOSTS = os.environ.get(192.168.0.73 127.0.0.1 localhost *).split(" ")
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+#DEBUG = int(os.environ.get("DEBUG", default=0))
+# 'DJANGO_ALLOWED_HOSTS' должен быть в виде одной строки с хостами разделенными символом пробела
+# Для примера: 'DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]'
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.79','127.0.0.1', 'localhost','*']
+A#LLOWED_HOSTS = ['192.168.0.73','127.0.0.1', 'localhost','*']
 
 
 # Application definition
@@ -86,7 +96,7 @@ WSGI_APPLICATION = 'ServiceCRM3.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm3',
+        'NAME': 'zhub',
         'USER': 'root',
         'PASSWORD': 'root',
         'HOST': 'localhost',
@@ -120,7 +130,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
@@ -131,10 +141,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-print('BASE_DIR ',BASE_DIR)
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-print('STATIC_ROOT ',STATIC_ROOT)
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ServiceCRM3/static'),]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
@@ -158,5 +166,38 @@ CKEDITOR_UPLOAD_PATH = "media/uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
+    },
+}
+
+LOGIN_URL = '/users/login/'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'simple': {
+            'format': '%(asctime)s %(message)s'
+        },
+        'info_frmt': {
+            'format': '%(asctime)s %(levelname)-2s %(message)s'
+        }
+    },
+    'handlers': {
+        'crm3_hndl': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'log_info.log',
+            'formatter': 'info_frmt',
+            'encoding': 'UTF-8',
+        },
+    },
+    'loggers': {
+        'crm3_info': {
+            'handlers': ['crm3_hndl'],
+            'level': 'INFO',
+            'propagate': True,
+            },
     },
 }
