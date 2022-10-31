@@ -36,7 +36,7 @@ ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
 
-A#LLOWED_HOSTS = ['192.168.0.73','127.0.0.1', 'localhost','*']
+#ALLOWED_HOSTS = ['192.168.0.73','127.0.0.1', 'localhost','*']
 
 
 # Application definition
