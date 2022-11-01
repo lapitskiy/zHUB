@@ -13,15 +13,15 @@ WORKDIR $MICRO_SERVICE
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-RUN apt update && apt install -y --no-install-recommends && apt install -y software-properties-common
-RUN apt update && apt install -y locales
+RUN apt-get update && apt-get install -y --no-install-recommends && apt-get install -y software-properties-common
+RUN apt-get update && apt-get install -y locales
 RUN sed -i -e 's/# ru_RU.UTF-8 UTF-8/ru_RU.UTF-8 UTF-8/' /etc/locale.gen
 RUN dpkg-reconfigure --frontend=noninteractive locales
 
 ENV LANG ru_RU.UTF-8
 ENV LC_ALL ru_RU.UTF-8
 
-RUN apt update && apt install mysql-server mysql-client
+RUN apt-get update && apt-get install mysql-server mysql-client
 
 COPY ./requirements.txt $MICRO_SERVICE
 RUN pip install --upgrade pip && pip3 install -r requirements.txt --no-cache-dir
