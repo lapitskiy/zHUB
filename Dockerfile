@@ -21,8 +21,6 @@ RUN dpkg-reconfigure --frontend=noninteractive locales
 ENV LANG ru_RU.UTF-8
 ENV LC_ALL ru_RU.UTF-8
 
-RUN apt-get update && apt-get install mysql-server mysql-client
-
 COPY ./requirements.txt $MICRO_SERVICE
 RUN pip install --upgrade pip && pip3 install -r requirements.txt --no-cache-dir
 COPY . .
